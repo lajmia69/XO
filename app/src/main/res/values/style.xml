@@ -6,6 +6,8 @@
         <item name="colorAccent">@color/neon_pink</item>
         <item name="android:windowBackground">@color/background_dark</item>
         <item name="android:textColor">@color/text_color_primary</item>
+        <item name="android:statusBarColor">@color/background_dark</item>
+        <item name="android:navigationBarColor">@color/background_dark</item>
     </style>
 
     <style name="NeonText">
@@ -13,8 +15,9 @@
         <item name="android:shadowColor">@color/neon_blue</item>
         <item name="android:shadowDx">0</item>
         <item name="android:shadowDy">0</item>
-        <item name="android:shadowRadius">15</item>
+        <item name="android:shadowRadius">20</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="NeonButton" parent="Widget.AppCompat.Button">
@@ -22,23 +25,65 @@
         <item name="android:textColor">@color/neon_green</item>
         <item name="android:textStyle">bold</item>
         <item name="android:padding">16dp</item>
-        <item name="android:elevation">8dp</item>
+        <item name="android:elevation">12dp</item>
         <item name="android:translationZ">4dp</item>
         <item name="android:stateListAnimator">@null</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.05</item>
     </style>
-    
+
+    <!-- NEW: Ultra Glowing Button Style -->
+    <style name="GlowingNeonButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/glowing_button_bg</item>
+        <item name="android:textColor">@color/neon_green</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:elevation">16dp</item>
+        <item name="android:translationZ">6dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:shadowColor">@color/neon_green</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">15</item>
+    </style>
+
     <style name="GridButton" parent="Widget.AppCompat.Button">
-        <item name="android:layout_width">90dp</item>
-        <item name="android:layout_height">90dp</item>
-        <item name="android:layout_margin">6dp</item>
-        <item name="android:background">@drawable/neon_border_bg</item>
-        <item name="android:textSize">50sp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_rowWeight">1</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:background">@drawable/grid_cell_bg</item>
+        <item name="android:textSize">56sp</item>
         <item name="android:textColor">@color/neon_pink</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:elevation">6dp</item>
+        <item name="android:elevation">8dp</item>
         <item name="android:stateListAnimator">@null</item>
+        <item name="android:fontFamily">sans-serif-black</item>
     </style>
-    
+
+    <!-- NEW: Ultra Glowing Grid Button Style -->
+    <style name="GlowingGridButton" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_rowWeight">1</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:background">@drawable/glowing_cell_bg</item>
+        <item name="android:textSize">60sp</item>
+        <item name="android:textColor">@color/neon_pink</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:elevation">12dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:shadowColor">@color/neon_pink</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">25</item>
+    </style>
+
     <style name="FloatingCard">
         <item name="android:background">@drawable/card_bg</item>
         <item name="android:elevation">12dp</item>

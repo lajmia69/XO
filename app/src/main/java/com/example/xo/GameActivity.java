@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
@@ -45,12 +46,13 @@ public class GameActivity extends AppCompatActivity {
     private TextView textPartiesNulles;
     private TextView textStatus;
     private Button btnToggleMusicGame;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        
+
         // Allow volume control
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
@@ -70,6 +72,7 @@ public class GameActivity extends AppCompatActivity {
         textPartiesNulles = findViewById(R.id.text_parties_nulles);
         textStatus = findViewById(R.id.text_status);
         btnToggleMusicGame = findViewById(R.id.btn_toggle_music_game);
+        progressBar = findViewById(R.id.progress_bar);
 
         initializeButtons();
         updateUI();
@@ -82,16 +85,16 @@ public class GameActivity extends AppCompatActivity {
             if (HomeActivity.mediaPlayer != null) {
                 isPlaying = HomeActivity.mediaPlayer.isPlaying();
             }
-            btnToggleMusicGame.setText(isPlaying ? "Musique : ON" : "Musique : OFF");
+            btnToggleMusicGame.setText(isPlaying ? "🎵 Musique : ON" : "🎵 Musique : OFF");
 
             btnToggleMusicGame.setOnClickListener(v -> {
                 if (HomeActivity.mediaPlayer != null) {
                     if (HomeActivity.mediaPlayer.isPlaying()) {
                         HomeActivity.mediaPlayer.pause();
-                        btnToggleMusicGame.setText("Musique : OFF");
+                        btnToggleMusicGame.setText("🎵 Musique : OFF");
                     } else {
                         HomeActivity.mediaPlayer.start();
-                        btnToggleMusicGame.setText("Musique : ON");
+                        btnToggleMusicGame.setText("🎵 Musique : ON");
                     }
                 }
             });
@@ -132,7 +135,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void makeMove(int row, int col) {
         String symbol = isPlayerXTurn ? "X" : "O";
-        
+
         // Set text and color
         buttons[row][col].setText(symbol);
         if (symbol.equals("X")) {
@@ -140,7 +143,7 @@ public class GameActivity extends AppCompatActivity {
         } else {
             buttons[row][col].setTextColor(getResources().getColor(R.color.neon_blue));
         }
-        
+
         board[row][col] = symbol;
 
         if (checkForWin()) {
@@ -334,10 +337,10 @@ public class GameActivity extends AppCompatActivity {
         partieTerminee = true;
 
         if (isWin) {
-            textStatus.setText("Victoire de " + result + "!");
+            textStatus.setText("🏆 Victoire de " + result + "! 🏆");
             if (result.equals("X")) scoreX++; else scoreO++;
         } else {
-            textStatus.setText("Match nul.");
+            textStatus.setText("🤝 Match nul 🤝");
             partiesNulles++;
         }
         updateUI();
@@ -368,19 +371,26 @@ public class GameActivity extends AppCompatActivity {
 
         // Si c'est au tour du bot (PvE et Bot est X)
         if (isPvE && botSymbol.equals("X")) {
-             new Handler(Looper.getMainLooper()).postDelayed(this::playBotMove, 500);
+            new Handler(Looper.getMainLooper()).postDelayed(this::playBotMove, 500);
         }
     }
 
     private void updateUI() {
-        textPartieNumero.setText("Partie " + partieActuelle + "/" + totalParties);
-        textScoreX.setText("Score X: " + scoreX);
-        textScoreO.setText("Score O: " + scoreO);
-        textPartiesNulles.setText("Nuls: " + partiesNulles);
+        textPartieNumero.setText("PARTIE " + partieActuelle + "/" + totalParties);
+        textScoreX.setText(String.valueOf(scoreX));
+        textScoreO.setText(String.valueOf(scoreO));
+        textPartiesNulles.setText(String.valueOf(partiesNulles));
+
+        // Update progress bar
+        if (progressBar != null) {
+            int progress = (int) ((partieActuelle / (float) totalParties) * 100);
+            progressBar.setProgress(progress);
+        }
     }
 
     private void updateStatus() {
-        textStatus.setText("Tour de : " + (isPlayerXTurn ? "X" : "O"));
+        String currentPlayer = isPlayerXTurn ? "X" : "O";
+        textStatus.setText("Tour de : " + currentPlayer);
     }
 
     private void endTournament() {
@@ -388,21 +398,21 @@ public class GameActivity extends AppCompatActivity {
         String vainqueur;
 
         if (scoreX > scoreO) {
-            winnerMessage = "Victoire du joueur X!";
+            winnerMessage = "🏆 Victoire du joueur X! 🏆";
             vainqueur = "X";
         } else if (scoreO > scoreX) {
-            winnerMessage = "Victoire du joueur O!";
+            winnerMessage = "🏆 Victoire du joueur O! 🏆";
             vainqueur = "O";
         } else {
-            winnerMessage = "Égalité parfaite!";
+            winnerMessage = "🤝 Égalité parfaite! 🤝";
             vainqueur = "Égalité";
         }
 
         new AlertDialog.Builder(this)
-                .setTitle("Résultat du Tournoi")
-                .setMessage(winnerMessage + "\nScore X: " + scoreX + ", Score O: " + scoreO + ", Nulles: " + partiesNulles)
-                .setPositiveButton("Sauvegarder", (dialog, which) -> saveTournamentResults(vainqueur))
-                .setNegativeButton("Accueil", (dialog, which) -> goToHome())
+                .setTitle("🎉 Résultat du Tournoi 🎉")
+                .setMessage(winnerMessage + "\n\nScore X: " + scoreX + "\nScore O: " + scoreO + "\nNulles: " + partiesNulles)
+                .setPositiveButton("💾 Sauvegarder", (dialog, which) -> saveTournamentResults(vainqueur))
+                .setNegativeButton("🏠 Accueil", (dialog, which) -> goToHome())
                 .setCancelable(false)
                 .show();
     }
@@ -417,10 +427,10 @@ public class GameActivity extends AppCompatActivity {
             oos.writeObject(result);
             oos.close();
             fos.close();
-            Toast.makeText(this, "Scores sauvegardés.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "✅ Scores sauvegardés.", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Erreur sauvegarde.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "❌ Erreur sauvegarde.", Toast.LENGTH_LONG).show();
         }
         goToHome();
     }

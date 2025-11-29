@@ -41,23 +41,29 @@ public class HomeActivity extends AppCompatActivity {
 
         // Start background music if not already playing
         if (mediaPlayer == null) {
-            int musicResId = getResources().getIdentifier("peter", "raw", getPackageName());
-            
-            if (musicResId != 0) {
-                 mediaPlayer = MediaPlayer.create(this, musicResId);
-                 if (mediaPlayer != null) {
-                     // Force device system volume to max for music
-                     AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-                     if (audioManager != null) {
-                         int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-                         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, 0);
+            // Using identifier is safer to avoid crashes if file is missing,
+            // but ensuring we catch exceptions during creation is also good.
+            try {
+                int musicResId = getResources().getIdentifier("peter", "raw", getPackageName());
+                if (musicResId != 0) {
+                     mediaPlayer = MediaPlayer.create(this, musicResId);
+                     if (mediaPlayer != null) {
+                         // Force device system volume to max for music
+                         AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+                         if (audioManager != null) {
+                             int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, 0);
+                         }
+    
+                         mediaPlayer.setLooping(true);
+                         mediaPlayer.setVolume(1.0f, 1.0f); // Set player volume to 100%
+                         mediaPlayer.start();
+                         isMusicPlaying = true;
                      }
-
-                     mediaPlayer.setLooping(true);
-                     mediaPlayer.setVolume(1.0f, 1.0f); // Set player volume to 100%
-                     mediaPlayer.start();
-                     isMusicPlaying = true;
-                 }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Continue without music if it fails
             }
         } else {
             isMusicPlaying = mediaPlayer.isPlaying();
@@ -113,13 +119,33 @@ public class HomeActivity extends AppCompatActivity {
         btnPrincipe.setOnClickListener(v -> showRules());
         btnRetrouverScores.setOnClickListener(v -> retrieveSavedScores());
     }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Sync music button state when returning to this activity
+        Button btnToggleMusic = findViewById(R.id.btn_toggle_music);
+        if (btnToggleMusic != null && mediaPlayer != null) {
+            isMusicPlaying = mediaPlayer.isPlaying();
+            btnToggleMusic.setText(isMusicPlaying ? "Musique : ON" : "Musique : OFF");
+        }
+    }
 
     /** Démarre l'activité de jeu avec le nombre de parties choisi. */
     private void startGame() {
-        int totalParties = (Integer) partySelector.getSelectedItem();
+        Integer selectedItem = (Integer) partySelector.getSelectedItem();
+        int totalParties = (selectedItem != null) ? selectedItem : 5; // Default to 5 if null
         
         boolean isPvE = radioGroupMode.getCheckedRadioButtonId() == R.id.radio_pve;
-        String userSymbol = ((RadioButton) findViewById(radioGroupSymbol.getCheckedRadioButtonId())).getText().toString();
+        
+        int selectedSymbolId = radioGroupSymbol.getCheckedRadioButtonId();
+        String userSymbol = "X";
+        if (selectedSymbolId != -1) {
+             RadioButton selectedBtn = findViewById(selectedSymbolId);
+             if (selectedBtn != null) {
+                 userSymbol = selectedBtn.getText().toString();
+             }
+        }
         
         int difficulty = 0; // 0: Easy, 1: Medium, 2: Hard
         if (isPvE) {
@@ -175,9 +201,5 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Note: We typically don't stop the music here if we want it to persist across activities,
-        // but properly managing a global MediaPlayer usually involves a Service or a Singleton.
-        // For this simple request, we keep it running. 
-        // If the app is killed, the system will handle it.
     }
 }

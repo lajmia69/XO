@@ -5,110 +5,478 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:background="@color/background_dark"
     tools:context=".GameActivity">
 
-    <LinearLayout
-        android:id="@+id/score_layout"
+    <!-- Multi-layer Animated Background -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.05"
+        android:background="@drawable/ic_launcher_background"/>
+
+    <!-- Outer Glow Layer -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:alpha="0.15"
+        android:background="@drawable/gradient_glow_top"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- Score Dashboard Card with Enhanced Glow -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/score_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        style="@style/FloatingCard"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#1A1A1A"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="24dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/text_partie_numero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Partie 1/5"
-            android:textSize="24sp"
-            style="@style/NeonText"
-            android:layout_marginBottom="16dp"/>
+        <!-- Glow Effect Layer -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/card_glow_effect"
+            android:alpha="0.3"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="8dp">
+            android:padding="24dp">
 
+            <!-- Tournament Progress with Glow -->
             <TextView
-                android:id="@+id/text_score_x"
+                android:id="@+id/text_partie_numero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="X: 0"
-                android:textSize="20sp"
-                style="@style/NeonText"
-                android:layout_marginEnd="32dp"/>
+                android:text="PARTIE 1/5"
+                android:textSize="22sp"
+                android:textColor="@color/neon_green"
+                android:fontFamily="sans-serif-black"
+                android:letterSpacing="0.25"
+                android:shadowColor="@color/neon_green"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="25"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-            <TextView
-                android:id="@+id/text_score_o"
-                android:layout_width="wrap_content"
+            <!-- Glowing Progress Bar -->
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="12dp"
+                android:layout_marginTop="16dp"
+                android:progress="20"
+                android:progressTint="@color/neon_blue"
+                android:progressBackgroundTint="#2C2C2C"
+                android:elevation="8dp"
+                app:layout_constraintTop_toBottomOf="@id/text_partie_numero"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Glow line under progress -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="3dp"
+                android:background="@color/neon_blue"
+                android:alpha="0.6"
+                android:layout_marginTop="2dp"
+                app:layout_constraintTop_toBottomOf="@id/progress_bar"
+                app:layout_constraintStart_toStartOf="@id/progress_bar"
+                app:layout_constraintEnd_toEndOf="@id/progress_bar"/>
+
+            <!-- Enhanced Score Section with Individual Glows -->
+            <LinearLayout
+                android:id="@+id/score_section"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="O: 0"
-                android:textSize="20sp"
-                style="@style/NeonText"/>
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/progress_bar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/text_parties_nulles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Parties nulles: 0"
-            android:textSize="16sp"
-            style="@style/NeonText"
-            android:layout_marginBottom="8dp"/>
+                <!-- Player X Score with Pink Glow -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="#1E1E1E"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="16dp"
+                    android:layout_marginEnd="4dp">
 
-    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/pink_glow_gradient"
+                        android:alpha="0.2"/>
 
-    <GridLayout
-        android:id="@+id/game_grid"
-        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="✖"
+                            android:textSize="40sp"
+                            android:textColor="@color/neon_pink"
+                            android:shadowColor="@color/neon_pink"
+                            android:shadowDx="0"
+                            android:shadowDy="0"
+                            android:shadowRadius="30"/>
+
+                        <TextView
+                            android:id="@+id/text_score_x"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="42sp"
+                            android:textColor="@color/neon_pink"
+                            android:fontFamily="sans-serif-black"
+                            android:shadowColor="@color/neon_pink"
+                            android:shadowDx="0"
+                            android:shadowDy="0"
+                            android:shadowRadius="25"
+                            android:layout_marginTop="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="VICTOIRES"
+                            android:textSize="10sp"
+                            android:textColor="@color/neon_pink"
+                            android:fontFamily="monospace"
+                            android:letterSpacing="0.15"
+                            android:shadowColor="@color/neon_pink"
+                            android:shadowRadius="10"
+                            android:layout_marginTop="4dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Draw Score with Green Glow -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.85"
+                    app:cardBackgroundColor="#1E1E1E"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="16dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/green_glow_gradient"
+                        android:alpha="0.2"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="═"
+                            android:textSize="36sp"
+                            android:textColor="@color/neon_green"
+                            android:shadowColor="@color/neon_green"
+                            android:shadowDx="0"
+                            android:shadowDy="0"
+                            android:shadowRadius="30"/>
+
+                        <TextView
+                            android:id="@+id/text_parties_nulles"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="32sp"
+                            android:textColor="@color/neon_green"
+                            android:fontFamily="sans-serif-black"
+                            android:shadowColor="@color/neon_green"
+                            android:shadowDx="0"
+                            android:shadowDy="0"
+                            android:shadowRadius="20"
+                            android:layout_marginTop="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="NULS"
+                            android:textSize="9sp"
+                            android:textColor="@color/neon_green"
+                            android:fontFamily="monospace"
+                            android:letterSpacing="0.15"
+                            android:shadowColor="@color/neon_green"
+                            android:shadowRadius="10"
+                            android:layout_marginTop="4dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Player O Score with Blue Glow -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="#1E1E1E"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="16dp"
+                    android:layout_marginStart="4dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/blue_glow_gradient"
+                        android:alpha="0.2"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="⭕"
+                            android:textSize="40sp"
+                            android:textColor="@color/neon_blue"
+                            android:shadowColor="@color/neon_blue"
+                            android:shadowDx="0"
+                            android:shadowDy="0"
+                            android:shadowRadius="30"/>
+
+                        <TextView
+                            android:id="@+id/text_score_o"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="42sp"
+                            android:textColor="@color/neon_blue"
+                            android:fontFamily="sans-serif-black"
+                            android:shadowColor="@color/neon_blue"
+                            android:shadowDx="0"
+                            android:shadowDy="0"
+                            android:shadowRadius="25"
+                            android:layout_marginTop="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="VICTOIRES"
+                            android:textSize="10sp"
+                            android:textColor="@color/neon_blue"
+                            android:fontFamily="monospace"
+                            android:letterSpacing="0.15"
+                            android:shadowColor="@color/neon_blue"
+                            android:shadowRadius="10"
+                            android:layout_marginTop="4dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Ultra Glowing Game Board -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/game_board_card"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:columnCount="3"
-        android:rowCount="3"
-        android:background="@drawable/neon_border_bg"
-        android:padding="8dp"
-        android:elevation="10dp"
-        app:layout_constraintTop_toBottomOf="@id/score_layout"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#1E1E1E"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="32dp"
+        app:layout_constraintTop_toBottomOf="@id/score_card"
+        app:layout_constraintBottom_toTopOf="@id/status_card"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.3">
+        app:layout_constraintVertical_bias="0.35">
 
-        <Button style="@style/GridButton" android:id="@+id/button_00" android:tag="00" android:onClick="onCellClick" />
-        <Button style="@style/GridButton" android:id="@+id/button_01" android:tag="01" android:onClick="onCellClick" />
-        <Button style="@style/GridButton" android:id="@+id/button_02" android:tag="02" android:onClick="onCellClick" />
-        <Button style="@style/GridButton" android:id="@+id/button_10" android:tag="10" android:onClick="onCellClick" />
-        <Button style="@style/GridButton" android:id="@+id/button_11" android:tag="11" android:onClick="onCellClick" />
-        <Button style="@style/GridButton" android:id="@+id/button_12" android:tag="12" android:onClick="onCellClick" />
-        <Button style="@style/GridButton" android:id="@+id/button_20" android:tag="20" android:onClick="onCellClick" />
-        <Button style="@style/GridButton" android:id="@+id/button_21" android:tag="21" android:onClick="onCellClick" />
-        <Button style="@style/GridButton" android:id="@+id/button_22" android:tag="22" android:onClick="onCellClick" />
+        <!-- Multi-color Glow Background -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/multi_color_glow"
+            android:alpha="0.25"/>
 
-    </GridLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="28dp">
 
-    <TextView
-        android:id="@+id/text_status"
-        android:layout_width="wrap_content"
+            <!-- Animated Corner Decorations -->
+            <!-- Top Left Corner -->
+            <View
+                android:layout_width="50dp"
+                android:layout_height="4dp"
+                android:background="@drawable/blue_glow_gradient"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="50dp"
+                android:background="@drawable/blue_glow_gradient"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <!-- Top Right Corner -->
+            <View
+                android:layout_width="50dp"
+                android:layout_height="4dp"
+                android:background="@drawable/pink_glow_gradient"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pink_glow_gradient"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Game Grid with Enhanced Glow -->
+            <GridLayout
+                android:id="@+id/game_grid"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:columnCount="3"
+                android:rowCount="3"
+                android:background="@drawable/neon_border_glow_bg"
+                android:padding="16dp"
+                android:elevation="12dp"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_max="380dp">
+
+                <Button style="@style/GlowingGridButton" android:id="@+id/button_00" android:tag="00" android:onClick="onCellClick" />
+                <Button style="@style/GlowingGridButton" android:id="@+id/button_01" android:tag="01" android:onClick="onCellClick" />
+                <Button style="@style/GlowingGridButton" android:id="@+id/button_02" android:tag="02" android:onClick="onCellClick" />
+                <Button style="@style/GlowingGridButton" android:id="@+id/button_10" android:tag="10" android:onClick="onCellClick" />
+                <Button style="@style/GlowingGridButton" android:id="@+id/button_11" android:tag="11" android:onClick="onCellClick" />
+                <Button style="@style/GlowingGridButton" android:id="@+id/button_12" android:tag="12" android:onClick="onCellClick" />
+                <Button style="@style/GlowingGridButton" android:id="@+id/button_20" android:tag="20" android:onClick="onCellClick" />
+                <Button style="@style/GlowingGridButton" android:id="@+id/button_21" android:tag="21" android:onClick="onCellClick" />
+                <Button style="@style/GlowingGridButton" android:id="@+id/button_22" android:tag="22" android:onClick="onCellClick" />
+            </GridLayout>
+
+            <!-- Bottom Decorative Corners -->
+            <View
+                android:layout_width="50dp"
+                android:layout_height="4dp"
+                android:background="@drawable/green_glow_gradient"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="50dp"
+                android:background="@drawable/green_glow_gradient"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="4dp"
+                android:background="@drawable/green_glow_gradient"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="50dp"
+                android:background="@drawable/green_glow_gradient"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Ultra Glowing Status Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/status_card"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Au tour de X"
-        android:textSize="24sp"
-        style="@style/NeonText"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@id/game_grid"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#1A1A1A"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_toggle_music_game"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/multi_color_glow"
+            android:alpha="0.2"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⚡ STATUS ⚡"
+                android:textSize="14sp"
+                android:textColor="@color/neon_green"
+                android:fontFamily="monospace"
+                android:letterSpacing="0.25"
+                android:shadowColor="@color/neon_green"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="15"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:id="@+id/text_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tour de : X"
+                android:textSize="28sp"
+                android:textColor="@color/neon_blue"
+                android:fontFamily="sans-serif-black"
+                android:shadowColor="@color/neon_blue"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="30"
+                android:letterSpacing="0.08"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Glowing Music Button -->
     <Button
         android:id="@+id/btn_toggle_music_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Musique"
-        style="@style/NeonButton"
+        android:text="🎵 Musique"
+        style="@style/GlowingNeonButton"
+        android:textSize="14sp"
+        android:paddingStart="28dp"
+        android:paddingEnd="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="16dp"/>
