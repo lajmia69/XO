@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_dark"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:gravity="center_horizontal"
+        tools:context=".HomeActivity">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jeu X-O (Tournoi)"
+            android:textSize="32sp"
+            style="@style/NeonText"
+            android:layout_marginBottom="30dp"/>
+
+        <!-- Game Mode Selection Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            style="@style/FloatingCard"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mode de jeu :"
+                style="@style/NeonText"
+                android:textSize="18sp"
+                android:layout_marginBottom="8dp"/>
+
+            <RadioGroup
+                android:id="@+id/radio_group_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <RadioButton
+                    android:id="@+id/radio_pvp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Joueur vs Joueur"
+                    android:textColor="@color/text_color_primary"
+                    android:buttonTint="@color/neon_blue"
+                    android:checked="true"
+                    android:layout_marginEnd="20dp" />
+
+                <RadioButton
+                    android:id="@+id/radio_pve"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Joueur vs Bot"
+                    android:textColor="@color/text_color_primary"
+                    android:buttonTint="@color/neon_blue"/>
+            </RadioGroup>
+
+            <!-- Difficulty Selection (Hidden by default) -->
+            <LinearLayout
+                android:id="@+id/layout_difficulty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Difficulté :"
+                    style="@style/NeonText"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="8dp"/>
+
+                <RadioGroup
+                    android:id="@+id/radio_group_difficulty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/radio_easy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Facile"
+                        android:textColor="@color/text_color_primary"
+                        android:buttonTint="@color/neon_green"
+                        android:checked="true"/>
+
+                    <RadioButton
+                        android:id="@+id/radio_medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Moyen"
+                        android:textColor="@color/text_color_primary"
+                        android:buttonTint="@color/neon_green"/>
+
+                    <RadioButton
+                        android:id="@+id/radio_hard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Difficile"
+                        android:textColor="@color/text_color_primary"
+                        android:buttonTint="@color/neon_green"/>
+                </RadioGroup>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Settings Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            style="@style/FloatingCard"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choisissez votre symbole :"
+                style="@style/NeonText"
+                android:textSize="18sp"
+                android:layout_marginBottom="8dp"/>
+
+            <RadioGroup
+                android:id="@+id/radio_group_symbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <RadioButton
+                    android:id="@+id/radio_x"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="X"
+                    android:checked="true"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_color_primary"
+                    android:buttonTint="@color/neon_pink"
+                    android:layout_marginEnd="20dp" />
+
+                <RadioButton
+                    android:id="@+id/radio_o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="O"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_color_primary"
+                    android:buttonTint="@color/neon_pink"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre de parties du tournoi :"
+                style="@style/NeonText"
+                android:textSize="18sp"
+                android:layout_marginBottom="8dp"/>
+
+            <Spinner
+                android:id="@+id/spinner_nb_parties"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/neon_blue"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/btn_toggle_music"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Musique : ON"
+                style="@style/NeonButton"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_jouer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jouer"
+            style="@style/NeonButton"
+            android:textSize="20sp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btn_principe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Principe du jeu"
+            style="@style/NeonButton"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btn_retrouver_scores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Retrouver les scores"
+            style="@style/NeonButton"/>
+
+    </LinearLayout>
+</ScrollView>

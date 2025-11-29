@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/background_dark"
+    tools:context=".GameActivity">
+
+    <LinearLayout
+        android:id="@+id/score_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        style="@style/FloatingCard"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/text_partie_numero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Partie 1/5"
+            android:textSize="24sp"
+            style="@style/NeonText"
+            android:layout_marginBottom="16dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/text_score_x"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="X: 0"
+                android:textSize="20sp"
+                style="@style/NeonText"
+                android:layout_marginEnd="32dp"/>
+
+            <TextView
+                android:id="@+id/text_score_o"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="O: 0"
+                android:textSize="20sp"
+                style="@style/NeonText"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_parties_nulles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Parties nulles: 0"
+            android:textSize="16sp"
+            style="@style/NeonText"
+            android:layout_marginBottom="8dp"/>
+
+    </LinearLayout>
+
+    <GridLayout
+        android:id="@+id/game_grid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:rowCount="3"
+        android:background="@drawable/neon_border_bg"
+        android:padding="8dp"
+        android:elevation="10dp"
+        app:layout_constraintTop_toBottomOf="@id/score_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.3">
+
+        <Button style="@style/GridButton" android:id="@+id/button_00" android:tag="00" android:onClick="onCellClick" />
+        <Button style="@style/GridButton" android:id="@+id/button_01" android:tag="01" android:onClick="onCellClick" />
+        <Button style="@style/GridButton" android:id="@+id/button_02" android:tag="02" android:onClick="onCellClick" />
+        <Button style="@style/GridButton" android:id="@+id/button_10" android:tag="10" android:onClick="onCellClick" />
+        <Button style="@style/GridButton" android:id="@+id/button_11" android:tag="11" android:onClick="onCellClick" />
+        <Button style="@style/GridButton" android:id="@+id/button_12" android:tag="12" android:onClick="onCellClick" />
+        <Button style="@style/GridButton" android:id="@+id/button_20" android:tag="20" android:onClick="onCellClick" />
+        <Button style="@style/GridButton" android:id="@+id/button_21" android:tag="21" android:onClick="onCellClick" />
+        <Button style="@style/GridButton" android:id="@+id/button_22" android:tag="22" android:onClick="onCellClick" />
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/text_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Au tour de X"
+        android:textSize="24sp"
+        style="@style/NeonText"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/game_grid"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        android:id="@+id/btn_toggle_music_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Musique"
+        style="@style/NeonButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
